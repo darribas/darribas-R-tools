@@ -1,0 +1,9 @@
+################################
+### Small tools written in R ###
+################################
+
+Author: Dani Arribas-Bel <daniel.arribas.bel@gmail.com>
+Description: collection of R functions to perform different tasks.
+        Each file/package has documentation on its own and further 
+        description of each project may be found at <http://darribas.org>
+
