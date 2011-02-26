@@ -23,7 +23,7 @@ library(classInt)
 
 choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
         colPal="Blues", style="hclust", lwd=0.5, title='', sub='', xlab='',
-        ylab='', legend=TRUE, font=4, tcol='black', texto=''){
+        ylab='', legend=TRUE, font=4, tcol='black', texto='', width=960, height=960){
             # If not 'bins' -> categorical data
             poly <- readShapeSpatial(shp, force_ring=TRUE)
             attach(poly@data, warn.conflicts=FALSE)
@@ -44,7 +44,8 @@ choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
             detach(poly@data)
             #
             if(png!=FALSE){
-                png(png, width=960, height=960, bg="white")
+                png(png, width=width, height=height, bg="white")
+                #png(png, width=960, height=960, bg="white")
                 }
             if(bgLayer!=FALSE){
                 polyBg <- readShapeSpatial(bgLayer, force_ring=TRUE)
