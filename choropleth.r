@@ -21,6 +21,36 @@ library(spatial)
 library(RColorBrewer)
 library(classInt)
 
+gpclibPermit()
+
+dbf.choropleths <- function(link, dims=FALSE, excluded=c(), 
+                            classMethod='quantile', bins=5){
+    shp <- paste(link, 'shp', sep='.')
+    dbf <- paste(link, 'dbf', sep='.')
+    png <- paste(link, '_choropleths.png', sep='')
+    dbf <- read.dbf(dbf)
+    k <- length(dbf[1, ])
+    png(png, width=4670, height=2000, bg='white')
+    if(dims==FALSE){
+        s = sqrt(k)
+        s = (s - s%%1) + 1
+        dims = c(s, s)
+    }
+    par = par(mfrow=dims)
+    vars <- names(dbf)
+    vars <- vars[vars != excluded]
+
+    for(var in seq(length(vars))){
+        print(paste('Building var', vars[var]))
+        title <- vars[var]
+
+        choropleth(shp, vars[var], bins=bins, style=classMethod,
+        title=vars[var], font=10, legend=FALSE)
+        }
+
+    dev.off()
+}
+
 choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
         colPal="Blues", style="hclust", lwd=0.5, title='', sub='', xlab='',
         ylab='', legend=TRUE, font=4, tcol='black', texto='', width=960, height=960){
