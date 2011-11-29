@@ -38,14 +38,14 @@ dbf.choropleths <- function(link, dims=FALSE, excluded=c(),
     }
     par = par(mfrow=dims)
     vars <- names(dbf)
-    vars <- vars[vars != excluded]
+    vars <- vars[!(vars %in% excluded)]
 
     for(var in seq(length(vars))){
         print(paste('Building var', vars[var]))
-        title <- vars[var]
+        name <- vars[var]
 
-        choropleth(shp, vars[var], bins=bins, style=classMethod,
-        title=vars[var], font=10, legend=FALSE)
+        choropleth(shp, name, bins=bins, style=classMethod,
+        title=name, font=10, legend=FALSE)
         }
 
     dev.off()
