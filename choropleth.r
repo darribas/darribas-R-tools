@@ -24,7 +24,8 @@ library(classInt)
 gpclibPermit()
 
 dbf.choropleths <- function(link, dims=FALSE, excluded=c(), 
-                            classMethod='quantile', bins=5){
+                            classMethod='quantile', bins=5,
+                            border='black'){
     shp <- paste(link, 'shp', sep='.')
     dbf <- paste(link, 'dbf', sep='.')
     png <- paste(link, '_choropleths.png', sep='')
@@ -38,14 +39,14 @@ dbf.choropleths <- function(link, dims=FALSE, excluded=c(),
     }
     par = par(mfrow=dims)
     vars <- names(dbf)
-    vars <- vars[vars != excluded]
+    vars <- vars[!(vars %in% excluded)]
 
     for(var in seq(length(vars))){
         print(paste('Building var', vars[var]))
-        title <- vars[var]
+        name <- vars[var]
 
-        choropleth(shp, vars[var], bins=bins, style=classMethod,
-        title=vars[var], font=10, legend=FALSE)
+        choropleth(shp, name, bins=bins, style=classMethod,
+        title=name, font=10, legend=FALSE, border=border)
         }
 
     dev.off()
@@ -83,7 +84,7 @@ choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
                 plot(polyBg, lwd=lwd, border=border)
                 plot(poly, add=TRUE, col=colCode, lwd=lwd)
                 } else {
-                plot(poly, col=colCode, lwd=lwd)
+                plot(poly, col=colCode, lwd=lwd, border=border)
                 }
             title(main=title, sub=sub, xlab=xlab, ylab=ylab, cex.main=font,
             col.main=tcol, cex.sub=font, cex.lab=font)
