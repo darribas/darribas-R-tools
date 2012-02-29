@@ -53,7 +53,8 @@ dbf.choropleths <- function(link, dims=FALSE, excluded=c(),
 
 choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
         colPal="Blues", style="hclust", lwd=0.5, title='', sub='', xlab='',
-        ylab='', legend=TRUE, font=4, tcol='black', texto='', width=960, height=960){
+        ylab='', legend=TRUE, font=4, tcol='black', texto='', width=960,
+        height=960, border='black'){
             # If not 'bins' -> categorical data
             poly <- readShapeSpatial(shp, force_ring=TRUE)
             attach(poly@data, warn.conflicts=FALSE)
@@ -79,7 +80,7 @@ choropleth <- function(shp, field, png=FALSE, bins=FALSE, bgLayer=FALSE,
                 }
             if(bgLayer!=FALSE){
                 polyBg <- readShapeSpatial(bgLayer, force_ring=TRUE)
-                plot(polyBg, lwd=lwd)
+                plot(polyBg, lwd=lwd, border=border)
                 plot(poly, add=TRUE, col=colCode, lwd=lwd)
                 } else {
                 plot(poly, col=colCode, lwd=lwd)
